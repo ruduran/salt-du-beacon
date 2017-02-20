@@ -25,17 +25,24 @@ def __validate__(config):
         return False, 'A dict is required'
 
 
+def _get_dir_used_space(directory):
+    return int(sh.du(directory, s=True).split()[0])
+
+
 def beacon(config):
     ret = []
 
     for directory in config.keys():
         try:
-            used = int(sh.du(directory, s=True).split()[0])
+            used = _get_dir_used_space(directory)
             threshold = config[directory]
 
             if used >= threshold:
-                ret.append({'path': directory, 'used': used, 'threshold': config[directory]})
+                ret.append({'path': directory,
+                            'used': used,
+                            'threshold': config[directory]})
         except:
-            ret.append({'path': directory, 'error': 'Could not obtain the disk usage'})
+            ret.append({'path': directory,
+                        'error': 'Could not obtain the disk usage'})
 
     return ret
