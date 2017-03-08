@@ -51,4 +51,5 @@ salt/beacon/minion1/du/ {
 
 ## TODO
 
+* Docstrings in the code
 * Allow units in the configuration (e.g. 512M, 20G)
